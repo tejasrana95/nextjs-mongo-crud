@@ -1,0 +1,11 @@
+{
+  "name": "nextjs-mongo-crud",
+  "version": 1,
+  "build": {
+    "env": {
+      "MONGODB_URI": "@mongodb_uri",
+      "CLOUDINARY_URL": "@cloudinary_url",
+      "DB_NAME": "@db_name"
+    }
+  }
+}
