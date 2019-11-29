@@ -1,56 +1,62 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
-import { UserContext } from '../../components/UserContext';
 import Layout from '../../components/layout';
+import { withAuthSync, getUserData } from '../../utils/auth';
 
-const ProfilePage = () => {
-  const {
-    state: {
-      isLoggedIn, user: {
-        name, email, bio, profilePicture, gender
-      },
-    },
-  } = useContext(UserContext);
 
-  if (!isLoggedIn) return (<Layout><p>Please log in</p></Layout>);
-  return (
-    <Layout>
-      <style jsx>
-        {`
+class ProfilePage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      getUser: {}
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ getUser: getUserData() });
+  }
+
+  render() {
+    return (
+      <Layout>
+        <style jsx>
+          {`
           img {
             max-width: 100vh;
             border-radius: 50%;
             box-shadow: rgba(0, 0, 0, 0.05) 0 10px 20px 1px;
           }
         `}
-      </style>
-      <h1>Profile</h1>
-      <div>
-        <img src={profilePicture} width="256" height="256" alt={name} />
-        <p>
-          Name:
+        </style>
+        <h1>Profile</h1>
+        <div>
+          <img src={this.state.getUser.profilePicture} width="256" height="256" alt={this.state.getUser.name} />
+          <p>
+            Name:
           {' '}
-          { name }
-        </p>
-        <p>
-          Bio:
+            {this.state.getUser.name}
+          </p>
+          <p>
+            Bio:
           {' '}
-          { bio }
-        </p>
-        <p>
-          Email:
+            {this.state.getUser.bio}
+          </p>
+          <p>
+            Email:
           {' '}
-          { email }
-        </p>
-        <p>
-          Gender:
+            {this.state.getUser.email}
+          </p>
+          <p>
+            Gender:
           {' '}
-          { gender }
-        </p>
-      </div>
-      <Link href="/profile/settings"><button type="button">Edit</button></Link>
-    </Layout>
-  );
-};
+            {this.state.getUser.gender}
+          </p>
+        </div>
+        <Link href="/profile/settings"><button type="button">Edit</button></Link>
+      </Layout>
+    );
+  }
+}
 
-export default ProfilePage;
+export default withAuthSync(ProfilePage);

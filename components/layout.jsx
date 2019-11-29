@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import axioswal from 'axioswal';
 import { UserContext } from './UserContext';
-
+import { logout } from '../utils/auth'
 export default ({ children }) => {
   const { state: { isLoggedIn }, dispatch } = useContext(UserContext);
   const handleLogout = (event) => {
@@ -13,6 +13,7 @@ export default ({ children }) => {
       .then((data) => {
         if (data.status === 'ok') {
           dispatch({ type: 'clear' });
+          logout();
         }
       });
   };

@@ -3,7 +3,7 @@ import axioswal from 'axioswal';
 import { UserContext } from '../components/UserContext';
 import Layout from '../components/layout';
 import redirectTo from '../lib/redirectTo';
-
+import { login } from '../utils/auth'
 const LoginPage = () => {
   const { dispatch } = useContext(UserContext);
   const [email, setEmail] = useState('');
@@ -18,9 +18,8 @@ const LoginPage = () => {
       })
       .then((data) => {
         if (data.status === 'ok') {
-          //  Fetch the user data for UserContext here
-          dispatch({ type: 'fetch' });
-          redirectTo('/');
+          const token = data.token;
+          login(token, data.userData);
         }
       });
   };

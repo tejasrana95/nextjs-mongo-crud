@@ -1,7 +1,7 @@
 import nextConnect from 'next-connect';
 import bcrypt from 'bcryptjs';
 import middleware from '../../middlewares/middleware';
-
+import jwt from 'jsonwebtoken';
 const handler = nextConnect();
 
 handler.use(middleware);
@@ -23,9 +23,12 @@ handler.post((req, res) => {
     })
     .then((user) => {
       req.session.userId = user._id;
+      delete user.password;
+      const token = jwt.sign({ "email": user.email, "_id": user._id }, process.env.jwtSecret, { expiresIn: 86400 }) // 1 day token
       return res.send({
         status: 'ok',
-        message: `Welcome back, ${user.name}!`,
+        userData: user,
+        token: token
       });
     })
     .catch(error => res.send({

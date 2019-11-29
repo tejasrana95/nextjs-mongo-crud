@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import TableExp from './listData';
 import CustomerForm from './customerForm';
 import redirectTo from '../../lib/redirectTo';
+import { withAuthSync } from '../../utils/auth';
 
 class CustomerPage extends React.Component {
     updateTimeStamp = {};
@@ -27,11 +28,11 @@ class CustomerPage extends React.Component {
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            if (!this.context.state.isLoggedIn) {
-                redirectTo('/login');
-            }
-        }, 2000);
+        // setTimeout(() => {
+        //     if (!this.context.state.isLoggedIn) {
+        //         redirectTo('/login');
+        //     }
+        // }, 2000);
 
     }
 
@@ -66,5 +67,5 @@ class CustomerPage extends React.Component {
     }
 }
 
-export default CustomerPage;
+export default withAuthSync(CustomerPage);
 
