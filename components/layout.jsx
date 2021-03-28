@@ -4,7 +4,9 @@ import Link from 'next/link';
 import axioswal from 'axioswal';
 import { UserContext } from './UserContext';
 import { logout } from '../utils/auth'
-export default ({ children }) => {
+
+
+const layout = ({ children }) => {
   const { state: { isLoggedIn }, dispatch } = useContext(UserContext);
   const handleLogout = (event) => {
     event.preventDefault();
@@ -17,6 +19,7 @@ export default ({ children }) => {
         }
       });
   };
+
   return (
     <>
       <style jsx global>
@@ -100,6 +103,7 @@ export default ({ children }) => {
           }
         `}
       </style>
+
       <Head>
         <title>Next.js First POC</title>
         <meta
@@ -143,3 +147,5 @@ export default ({ children }) => {
     </>
   );
 };
+
+export default layout;
