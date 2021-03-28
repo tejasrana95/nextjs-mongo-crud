@@ -1,14 +1,15 @@
 import React from 'react';
 import App from 'next/app';
-import { UserContextProvider } from '../components/UserContext';
+// import { UserContextProvider } from '../components/UserContext';
 
 class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <UserContextProvider>
-        <Component {...pageProps} />
-      </UserContextProvider>
+      // <UserContextProvider>
+        
+      // </UserContextProvider>
+      <Component {...pageProps} />
     );
   }
 }
