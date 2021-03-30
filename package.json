@@ -25,6 +25,7 @@
     "cloudinary": "^1.25.1",
     "connect-mongo": "^4.4.1",
     "dotenv": "^8.2.0",
+    "express-session": "^1.17.1",
     "formidable": "^1.2.2",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
